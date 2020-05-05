@@ -1,6 +1,6 @@
 package lab8.servlets;
 
-import com.sun.deploy.uitoolkit.ui.ConsoleWindow;
+//import com.sun.deploy.uitoolkit.ui.ConsoleWindow;
 import lab8.classes.ChatMessage;
 import lab8.classes.ChatUser;
 

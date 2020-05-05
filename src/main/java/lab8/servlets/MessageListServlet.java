@@ -19,25 +19,26 @@ public class MessageListServlet extends ChatServlet
 		
 		printWriter.println("<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'/><meta http-equiv='refresh' content='5'></head>");
 		printWriter.println("<body>");
+		String avtor_pred = "";
 
-		for (int i = Messages.size() - 1; i >= 0; i--)
+		for (int i = 0; i < Messages.size(); i++)
 		{
 			ChatMessage message = Messages.get(i);
-			if (message.getWhere().equalsIgnoreCase("All"))
-			{
-				printWriter.println("<div><strong>" + message.getAuthor() + "</strong>: " + message.getMessage() + "</div>");
-			}
-			else if (ActiveUsers.get(message.getWhere()).getSessionId().equals(req.getSession().getId()))
-			{
-				printWriter.println("<div><strong>" + message.getAuthor() + " to you</strong>: " + message.getMessage() + "</div>");
-			}
-			else if(ActiveUsers.get(message.getAuthor()).getSessionId().equals(req.getSession().getId()))
-			{
-				printWriter.println("<div><strong>you to " + message.getWhere() + "</strong>: " + message.getMessage() + "</div>");
-			}
+                if (message.getWhere().equalsIgnoreCase("All") && message.getAuthor().equals(avtor_pred)) {
+                    /*String probel = "";
+                    for(int xex = 0; xex < message.getAuthor().length() + 1; xex++)
+                    { probel += " "; }*/
+                    printWriter.println("<div>" + message.getMessage() + "</div>");
+                } else if(message.getWhere().equalsIgnoreCase("All")) {
+                    printWriter.println("<div><strong>" + message.getAuthor() + "</strong>: " + message.getMessage() + "</div>");
+                }
+                else if (ActiveUsers.get(message.getWhere()).getSessionId().equals(req.getSession().getId())) {
+                    printWriter.println("<div><strong>" + message.getAuthor() + " to you</strong>: " + message.getMessage() + "</div>");
+                } else if (ActiveUsers.get(message.getAuthor()).getSessionId().equals(req.getSession().getId())) {
+                    printWriter.println("<div><strong>you to " + message.getWhere() + "</strong>: " + message.getMessage() + "</div>");
+                }
+            avtor_pred = message.getAuthor();
 		}
 		printWriter.println("</body></html>");
-		
 	}
-	
 }
